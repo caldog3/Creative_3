@@ -1,0 +1,140 @@
+<html>
+<head>
+      <link rel="stylesheet" href="/styles.css"/>
+</head>
+<nav>
+  <ul>
+    <li id="topbar">ASH's Pok&eacute;dex</li>
+  </ul>
+</nav>
+<body>
+  <div class="tab">
+  <button class="tablinks" onclick="openOption(event, 'ToCatch')" id="defaultOpen">TO CATCH</button>
+  <button class="tablinks" onclick="openOption(event, 'Pokedex')">POK&eacute;DEX</button>
+  <button class="tablinks" onclick="openOption(event, 'Item')" id="bottomTab">ITEM</button>
+</div>
+
+<div id="ToCatch" class="tabcontent">
+  <br><br><br><br><br>
+  <h1> Pokemon to catch? </h1>
+  <br><br>
+  <div class="container" id="todo">
+
+      <section class="app">
+
+        <input type="checkbox" id="mark-all" @click="selectAll" :checked="areAllSelected">
+        <input v-model="newTask" @keyup.enter="addTask" placeholder="Pokemon name goes here" autofocus class="text-input">
+        <button @click="clearList">Clear List</button>
+
+      </section>
+
+      <section class="list">
+
+        <ul class="list-item">
+
+          <li v-for="task in tasks" :class="{done: isChecked(task)}">
+
+            <input type="checkbox" class="checkbox" @click="check" v-model="task.checked">
+
+            <input type="text"
+              v-if="task === editingTask"
+              v-auto-focus class="text-input"
+              @keyup.enter="endEditing(task)"
+              @blur="endEditing(task)"
+              v-model="task.text">
+
+            <label
+              for="checkbox"
+              v-if="task !== editingTask"
+              @dblclick="editTask(task)">
+              {{ task.text }}</label>
+
+            <button class="delete"
+              @click="removeTask(task)">
+              X
+              </button>
+
+          </li>
+
+        </ul>
+
+      </section>
+
+  </div>
+  <div class="credit">
+      <p>Use the input field to add a Pokemon</p><br>
+      <p>Double click on the text to edit it</p><br>
+      <p>Hover on the item and click the "X" to delete it</p>
+  </div>
+</div>
+<div id="Pokedex" class="tabcontent">
+  <h1>Pok&eacute;mon</h1>
+  <form>
+    <label id="print"><br>Enter a Pok&eacute;mon by name or number:</label><br><br>
+    <input id="pokemonInput" type="text"><br><br>
+    <input id="pokemonSubmit" type="submit" value="Check">
+  </form>
+  <p><br></p>
+  <div id="pikachu"></div>
+  <div id="ash"></div><br>
+  <div id="pokemonResults">
+      <div class="pokeball">
+      <div class="pokeball__button"></div>
+      </div>
+  </div>
+</div>
+<div id="Item" class="tabcontent">
+  <h1><br>Item</h1>
+  <form>
+    <label id="print"><br>Enter an item name:</label><br><br>
+    <input id="itemInput" type="text"><br><br>
+    <input id="itemSubmit" type="submit" value="Check">
+  </form><br>
+  <div id="itemResults"></div>
+  <br>
+</div>
+
+
+
+
+
+<script>
+var myVar;
+
+function myFunction() {
+    myVar = setTimeout(showPage, 3000);
+}
+
+function showPage() {
+  document.getElementById("loader").style.display = "none";
+  document.getElementById("myDiv").style.display = "block";
+}
+</script>
+<script>
+function openOption(evt, option) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    document.getElementById(option).style.display = "block";
+    evt.currentTarget.className += " active";
+}
+</script>
+<script>document.getElementById("defaultOpen").click();</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript" src="script.js"></script>
+
+
+
+<footer>
+ <a href="https://github.com/caldog3/Creative_3.git">My Github</a>
+</footer>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
+<script src="/script.js"></script>
+</html>
